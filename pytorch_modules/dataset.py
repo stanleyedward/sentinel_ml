@@ -1,10 +1,12 @@
 import torch
 from torch.utils.data import Dataset
-
+import pandas as pd
 
 class MultiLabelDataset(Dataset):
 
     def __init__(self, dataframe, tokenizer, max_len: int, eval_mode: bool = False):
+        dataframe['labels'] = dataframe.iloc[:, 1:].values.tolist()
+        dataframe.drop(dataframe.columns.values[1:-1].tolist(), axis=1, inplace=True)
         self.data = dataframe
         self.tokenizer = tokenizer
         self.text = dataframe.comment_text
@@ -41,5 +43,6 @@ class MultiLabelDataset(Dataset):
                 
         if self.eval_mode is False:
             output['targets'] = torch.tensor(self.targets.iloc[index], dtype=torch.float)
+            
                 
         return output

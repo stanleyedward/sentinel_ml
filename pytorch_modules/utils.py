@@ -29,6 +29,8 @@ def train_step(epoch: int,
         "train_loss": []
     }
     
+    # accuracy = Accuracy(task="multilabel", num_classes=6)
+    
     for batch, data in progress_bar:
         
         ids = data['ids'].to(device, dtype = torch.long)
@@ -74,6 +76,8 @@ def test_step(epoch: int,
     model.eval() 
     test_loss, test_acc = 0, 0
 
+    # accuracy = Accuracy(task="multilabel", num_classes=6)
+    
     progress_bar = tqdm(
       enumerate(dataloader), 
       desc=f"Testing Epoch {epoch}", 
