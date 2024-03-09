@@ -49,7 +49,7 @@ def train_step(epoch: int,
 
         preds = torch.round(torch.sigmoid(outputs))
         # train_acc += torch.eq(targets, preds).sum().item()/len(preds)
-        train_acc += accuracy(preds, targets).item().cpu()
+        train_acc += accuracy(preds, targets).item()
         
         progress_bar.set_postfix(
             {
@@ -106,7 +106,7 @@ def test_step(epoch: int,
 
             preds = torch.round(torch.sigmoid(outputs))
             # test_acc += torch.eq(targets, preds).sum().item()/len(preds)
-            test_acc += accuracy(preds, targets).item().cpu()
+            test_acc += accuracy(preds, targets).item()
 
             progress_bar.set_postfix(
                 {
