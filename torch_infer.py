@@ -1,10 +1,15 @@
 from pytorch_modules import inference_utils
+from pytorch_modules import config
+from pytorch_modules.model import DistilBERTClass
+from transformers import DistilBertTokenizer
+import torch
 
-def forward(text, model_dir, tokenizer_dir):
+model = inference_utils.load_model(config.MODEL_DIR)
+tokenizer = DistilBertTokenizer.from_pretrained(config.TOKENIZER_DIR, truncation=True, do_lower_case=True)
+
+def forward(text, model, tokenizer):
     
-    model = inference_utils.load_model(model_dir)
-    tokenized_text = inference_utils.clean_and_tokenize_text(text, tokenizer_dir)
-    
+    tokenized_text = inference_utils.clean_and_tokenize_text(text, tokenizer)
     pred = inference_utils.inference_step(tokenized_text, model)
     
     return pred
