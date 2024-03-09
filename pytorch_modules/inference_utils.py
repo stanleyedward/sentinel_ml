@@ -47,7 +47,7 @@ def inference_step(tokenized_text, model):
         token_type_ids = tokenized_text['token_type_ids'].to(dtype = torch.long)
         
         output = model(ids, mask, token_type_ids).squeeze(dim=0)
-        pred = torch.round(torch.sigmoid(output)).item()
+        pred = torch.round(torch.sigmoid(output)).tolist()
         
     return pred
     

@@ -16,5 +16,5 @@ def forward(text, model, tokenizer):
 
 if __name__ == '__main__':
     text = "DIE LJAHS:DLKJASD*!(@&#!(P@:___)"
-    pred = int(forward(text, model_dir='models/test_model.pt', tokenizer_dir='models/tokenizer/'))
+    pred = forward(text, model=model, tokenizer=tokenizer)
     print(pred)
