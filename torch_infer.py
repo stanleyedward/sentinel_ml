@@ -6,6 +6,8 @@ import torch
 
 model = inference_utils.load_model(config.MODEL_DIR)
 tokenizer = DistilBertTokenizer.from_pretrained(config.TOKENIZER_DIR, truncation=True, do_lower_case=True)
+class_names = ["toxic", "severe_toxic", "obscene", "threat", "insult", "identity_hate"]
+class_mapping = {index: class_name for index, class_name in enumerate(class_names)}
 
 def forward(text, model, tokenizer):
     
@@ -17,4 +19,7 @@ def forward(text, model, tokenizer):
 if __name__ == '__main__':
     text = "DIE LJAHS:DLKJASD*!(@&#!(P@:___)"
     pred = forward(text, model=model, tokenizer=tokenizer)
-    print(pred)
+    class_mapping = {index: class_name for index, class_name in enumerate(class_names)}
+    flags = [class_mapping[index] for index, value in enumerate(pred) if value == 1]
+    
+    print(flags)
