@@ -10,7 +10,7 @@ class MultiLabelDataset(Dataset):
         self.text = dataframe.comment_text
         self.eval_mode = eval_mode 
         if self.eval_mode is False:
-            self.targets = self.data.is_toxic
+            self.targets = self.data.labels
         self.max_len = max_len
 
     def __len__(self):
@@ -40,6 +40,6 @@ class MultiLabelDataset(Dataset):
         }
                 
         if self.eval_mode is False:
-            output['targets'] = torch.tensor(self.targets[index], dtype=torch.float)
+            output['targets'] = torch.tensor(self.targets.iloc[index], dtype=torch.float)
                 
         return output
