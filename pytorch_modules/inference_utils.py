@@ -10,13 +10,13 @@ def load_model(model_dir:str ):
     
     return model
 
-def clean_and_tokenize_text(text, tokenizer_dir:str, max_len:int = 512):
+def clean_and_tokenize_text(text, tokenizer, max_len:int = 512):
     
     lowercse_test_string = text.lower()
     string_array = lowercse_test_string.replace("\xa0", " ").split()
     text = " ".join(string_array)
     
-    tokenizer = DistilBertTokenizer.from_pretrained(tokenizer_dir, truncation=True, do_lower_case=True)
+    # tokenizer = DistilBertTokenizer.from_pretrained(tokenizer_dir, truncation=True, do_lower_case=True)
     
     inputs = tokenizer.encode_plus(
         text,
@@ -46,7 +46,7 @@ def inference_step(tokenized_text, model):
         mask = tokenized_text['mask'].to(dtype = torch.long)
         token_type_ids = tokenized_text['token_type_ids'].to(dtype = torch.long)
         
-        output = model(ids, mask, token_type_ids).squeeze(dim=1)
+        output = model(ids, mask, token_type_ids).squeeze(dim=0)
         pred = torch.round(torch.sigmoid(output)).item()
         
     return pred

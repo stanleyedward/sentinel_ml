@@ -3,7 +3,7 @@ import time
 from typing import Tuple, Dict,List
 import torch
 from tqdm.auto import tqdm
-from torchmetrics import Accuracy
+from torchmetrics.classification import MultilabelAccuracy
 import matplotlib.pyplot as plt
 import torchinfo
 
@@ -29,7 +29,7 @@ def train_step(epoch: int,
         "train_loss": []
     }
     
-    # accuracy = Accuracy(task="multilabel", num_classes=6)
+    accuracy = MultilabelAccuracy(num_labels=6).to(device)
     
     for batch, data in progress_bar:
         
@@ -48,7 +48,8 @@ def train_step(epoch: int,
         optimizer.step()
 
         preds = torch.round(torch.sigmoid(outputs))
-        train_acc += torch.eq(targets, preds).sum().item()/len(preds)
+        # train_acc += torch.eq(targets, preds).sum().item()/len(preds)
+        train_acc += accuracy(preds, targets).item().cpu()
         
         progress_bar.set_postfix(
             {
@@ -76,7 +77,7 @@ def test_step(epoch: int,
     model.eval() 
     test_loss, test_acc = 0, 0
 
-    # accuracy = Accuracy(task="multilabel", num_classes=6)
+    accuracy = MultilabelAccuracy(num_labels=6).to(device)
     
     progress_bar = tqdm(
       enumerate(dataloader), 
@@ -104,7 +105,8 @@ def test_step(epoch: int,
             test_loss += loss.item()
 
             preds = torch.round(torch.sigmoid(outputs))
-            test_acc += torch.eq(targets, preds).sum().item()/len(preds)
+            # test_acc += torch.eq(targets, preds).sum().item()/len(preds)
+            test_acc += accuracy(preds, targets).item().cpu()
 
             progress_bar.set_postfix(
                 {

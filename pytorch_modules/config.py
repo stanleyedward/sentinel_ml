@@ -13,3 +13,5 @@ PRECISION = "16-mixed"
 LOGS_DIR = "logs/"
 
 DATA_DIR = 'dataset/cleaned_train.csv'
+MODEL_DIR = 'models/test_model.pt'
+TOKENIZER_DIR = 'models/tokenizer'
