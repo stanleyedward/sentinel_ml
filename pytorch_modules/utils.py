@@ -38,7 +38,7 @@ def train_step(epoch: int,
         token_type_ids = data['token_type_ids'].to(device, dtype = torch.long)
         targets = data['targets'].to(device, dtype = torch.float)
 
-        outputs = model(ids, mask, token_type_ids)
+        outputs = model(ids, mask, token_type_ids).squeeze(dim=0)
         loss = loss_fn(outputs, targets)
         
         train_loss +=loss.item()
@@ -98,7 +98,7 @@ def test_step(epoch: int,
             token_type_ids = data['token_type_ids'].to(device, dtype = torch.long)
             targets = data['targets'].to(device, dtype = torch.float)
 
-            outputs = model(ids, mask, token_type_ids)
+            outputs = model(ids, mask, token_type_ids).squeeze(dim=0)
             
             loss = loss_fn(outputs, targets)
             test_loss += loss.item()
