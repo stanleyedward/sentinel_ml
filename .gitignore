@@ -4,3 +4,5 @@ __pycache__
 */__pycache__
 lightning_modules/*
 lit_train.py
+dataset/train.csv
+train.csv
