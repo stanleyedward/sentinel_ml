@@ -57,7 +57,7 @@ def train_step(epoch: int,
             }
         )
         
-        if batch % 4000 == 0:
+        if batch % 300 == 0:
             train_results['train_acc'].append(train_acc / (batch + 1))
             train_results['train_loss'].append(train_loss / (batch + 1))
 
@@ -113,7 +113,7 @@ def test_step(epoch: int,
                 }
             )
             
-            if batch % 4000 == 0:
+            if batch % 300 == 0:
                 test_results['test_acc'].append(test_acc / (batch + 1))
                 test_results['test_loss'].append(test_loss / (batch + 1))
             
