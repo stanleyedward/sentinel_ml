@@ -1,4 +1,4 @@
-name: sentinel
+name: sentinel_ml
 channels:
   - defaults
 dependencies:
