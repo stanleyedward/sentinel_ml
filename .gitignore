@@ -6,3 +6,8 @@ lightning_modules/*
 lit_train.py
 dataset/train.csv
 train.csv
+*.safetensors
+frames/
+audio_samples/
+image_samples/
+video_samples/

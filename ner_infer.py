@@ -1,5 +1,6 @@
 from transformers import pipeline
 
+
 loaded_gen = pipeline("token-classification", 'models/ner/')
 sample_text = "My name is John and I live in California."
 
