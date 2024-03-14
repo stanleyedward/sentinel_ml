@@ -1,6 +1,6 @@
 import pathlib
 import cv2
-from nudenet import NudeClassifier
+from NudeNet import nudenet
 import os
 # cascade_path=pathlib.Path(cv2.__file__).parent.absolute() / "data"/"haarcascade_frontalface_default.xml"
 #print(cascade_path)
@@ -11,7 +11,7 @@ import os
 
 # camera = cv2.VideoCapture("fnf.mp4")
 #uncomment for testing!
-classifier = NudeClassifier()
+detector = nudenet.NudeDetector()
 cap = cv2.VideoCapture('video_samples/dexter.mp4')
 
 # Create a directory to save frames
@@ -23,17 +23,18 @@ frame_count = 0
 while cap.isOpened():
     ret, frame = cap.read()
     if not ret:
-        break
+        break        
     
+    frame_prediction = detector.detect(frame)
     # Classify each frame
-    frame_path = os.path.join(output_dir, f'frame_{frame_count}.jpg')
-    predicted_class = NudeClassifier.classify(frame_path)
-    print(predicted_class)
-    
-    cv2.imwrite(frame_path, frame)
-    
+    # frame_path = os.path.join(output_dir, f'frame_{frame_count}.jpg')
+    # predicted_class = NudeClassifier.classify(frame_path)
+    print(frame_prediction)
+    # 
+    # cv2.imwrite(frame_path, frame)
+    # 
     # Do something with the predicted class, like printing it
-    print(f"Frame {frame_count}: Predicted class: {predicted_class}")
+    # print(f"Frame {frame_count}: Predicted class: {predicted_class}")
     
     frame_count += 1
 
