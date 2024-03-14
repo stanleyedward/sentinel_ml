@@ -64,5 +64,6 @@ def video_detection(path, fps: int, output_dir = None, break_after_flag:bool = F
     
 if __name__ == '__main__':
     video_det_output = video_detection('video_samples/me_in_toilet.mp4', fps = 30, output_dir=None, break_after_flag=True)
-    # video_detection(0, fps = 30, output_dir=None, break_after_flag=True) for webcam 
+    # video_det_output = video_detection(0, fps = 30, output_dir=None, break_after_flag=True) for webcam 
+    print(video_det_output)
 
